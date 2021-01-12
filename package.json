@@ -1,6 +1,9 @@
 {
   "name": "react-mesto-auth",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "homepage": "https://kateworks.github.io/react-mesto-auth",
+  "description": "Интерактивная страница для размещения фотографий",
+  "author": "Ekaterina Pozhidaeva",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.8",
