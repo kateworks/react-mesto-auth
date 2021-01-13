@@ -1,13 +1,18 @@
 import React from 'react';
 import Header from '../components/Header';
-import Footer from '../components/Footer';
 
 function NotFound() {
   return(
     <div className="page">
       <Header />
-      <h1>Not Found</h1>
-      <Footer />
+      <section className="not-found">
+        <h3 className="not-found__title">
+          Ошибка 404
+        </h3>
+        <p className="not-found__subtitle">
+          Страница не найдена
+        </p>
+      </section>
     </div>
   );
 
