@@ -22,23 +22,23 @@ function PopupWithForm(props) {
   };
 
   return(
-    <div 
+    <div
       className={`popup popup_content_${props.name} ${openClass}`}
       onClick={handleOverlayClick}
     >
     <div className="popup__container">
 
-      <button 
-        type="button" 
+      <button
+        type="button"
         className="popup__btn popup__btn_action_close shaded"
         title="Закрыть форму без сохранения данных"
-        onClick={handleCloseClick} 
+        onClick={handleCloseClick}
       />
 
-      <form 
+      <form
         name={props.name}
         className={`popup__form popup__form_size_${props.size}`}
-        onSubmit={props.onSubmit} 
+        onSubmit={props.onSubmit}
       >
           <h3 className="popup__heading">
             {props.title}
@@ -46,8 +46,8 @@ function PopupWithForm(props) {
 
           {props.children}
 
-          <button 
-            type="submit" value="Создать" 
+          <button
+            type="submit" value="Создать"
             disabled={props.submitDisabled}
             className="popup__btn popup__btn_action_submit"
           >
@@ -56,7 +56,7 @@ function PopupWithForm(props) {
 
       </form>
     </div>
-  </div>  
+  </div>
   );
 }
 

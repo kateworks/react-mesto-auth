@@ -1,0 +1,25 @@
+@import url(./__form/login__form.css);
+@import url(./__heading/login__heading.css);
+@import url(./__item/login__item.css);
+@import url(./__button/login__button.css);
+
+.login {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 358px;
+  height: calc(100vh - 125px);
+
+  padding: 0;
+  padding-top: 60px;
+  padding-bottom: 112px;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 400px) {
+  .login {
+    max-width: 260px;
+    height: calc(100vh - 90px);
+    padding-top: 40px;
+    padding-bottom: 77px;
+  }
+}
