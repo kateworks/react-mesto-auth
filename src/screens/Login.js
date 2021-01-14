@@ -40,7 +40,7 @@ const Login = ({handleLogin, history}) => {
 
   return(
     <div className="page">
-      <Header />
+      <Header text={"Регистрация"} url="/sign-up"/>
       <section className="sign">
         <form name="form-login" className="sign__form">
           <h3 className="sign__heading">Вход</h3>

@@ -4,7 +4,7 @@ import Header from '../components/Header';
 function Register() {
   return (
     <div className="page">
-      <Header />
+      <Header text={"Войти"} url="/sign-in"/>
       <section className="sign">
         <form name="form-register" className="sign__form">
           <h3 className="sign__heading">Регистрация</h3>
