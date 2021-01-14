@@ -35,7 +35,7 @@ function Register() {
 
           <p className="">
             Уже зарегистрированы?
-            <a> Войти</a>
+            {/* <a href="#"> Войти</a> */}
           </p>
         </form>
       </section>
