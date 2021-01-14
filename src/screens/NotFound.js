@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from '../components/Header';
 
-function NotFound() {
+const NotFound = () => {
   return(
     <div className="page">
       <Header />

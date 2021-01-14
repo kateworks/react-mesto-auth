@@ -1,7 +1,43 @@
-import React from 'react';
+import React, {useState} from 'react';
+import * as auth from '../utils/auth';
 import Header from '../components/Header';
 
-function Login() {
+const Login = ({handleLogin, history}) => {
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
+
+  const resetForm = () => {
+    setEmail('');
+    setPassword('');
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if ( !email || !password ) {
+      return;
+    }
+    auth.authorize(email, password)
+      .then((data) => {
+        console.log(data);
+        if (data.jwt) {
+          resetForm();
+          handleLogin();
+          history.push('/home');
+        }
+      })
+      .catch(err => console.log(err));
+  }
+
+
   return(
     <div className="page">
       <Header />
@@ -15,6 +51,8 @@ function Login() {
               className="login__item"
               maxLength="40" minLength="2"
               placeholder="Email" required
+              value={email}
+              onChange={handleEmailChange}
             />
           </label>
 
@@ -24,12 +62,16 @@ function Login() {
               className="login__item"
               maxLength="20" minLength="6"
               placeholder="Password" required
+              value={password}
+              onChange={handlePasswordChange}
             />
           </label>
 
           <button
             type="submit" value="Войти"
-            className="login__button">
+            className="login__button"
+            onSubmit={handleSubmit}
+          >
               Войти
           </button>
         </form>
