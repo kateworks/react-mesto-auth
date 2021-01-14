@@ -44,17 +44,17 @@ function App() {
     <div>
       <Switch>
         <ProtectedRoute path="/home" loggedIn={loggedIn} component={HomePage} />
-        <Route path="/sign-in">
+        <Route path="/signin">
           <Login handleLogin={handleLogin} history={history}/>
         </Route>
-        <Route path="/sign-up">
-          <Register />
+        <Route path="/signup">
+          <Register history={history}/>
         </Route>
         <Route exact path="/">
-          {loggedIn ? <Redirect to="/home" /> : <Redirect to="/sign-in" />}
+          {loggedIn ? <Redirect to="/home" /> : <Redirect to="/signin" />}
         </Route>
         <Route path="/react-mesto-auth">
-          {loggedIn ? <Redirect to="/home" /> : <Redirect to="/sign-in" />}
+          {loggedIn ? <Redirect to="/home" /> : <Redirect to="/signin" />}
         </Route>
         <Route path="*">
           <NotFound />

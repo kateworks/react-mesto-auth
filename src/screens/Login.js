@@ -21,8 +21,8 @@ const Login = ({handleLogin, history}) => {
     setPassword('');
   }
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
     if ( !email || !password ) {
       return;
     }
@@ -41,9 +41,13 @@ const Login = ({handleLogin, history}) => {
 
   return(
     <div className="page">
-      <Header text={"Регистрация"} url="/sign-up"/>
+      <Header text={"Регистрация"} url="/signup"/>
       <section className="sign">
-        <form name="form-login" className="sign__form">
+        <form
+          name="form-login"
+          className="sign__form"
+          onSubmit={handleSubmit}
+        >
           <h3 className="sign__heading">Вход</h3>
 
           <label>
@@ -69,16 +73,15 @@ const Login = ({handleLogin, history}) => {
           </label>
 
           <button
-            type="submit" value="Войти"
+            type="submit"
             className="sign__button"
-            onSubmit={handleSubmit}
           >
               Войти
           </button>
 
           <p className="sign__text">
             Еще не зарегистрированы?
-            <Link to="/sign-up" className="sign__link"> Регистрация</Link>
+            <Link to="/signup" className="sign__link"> Регистрация</Link>
           </p>
 
         </form>
