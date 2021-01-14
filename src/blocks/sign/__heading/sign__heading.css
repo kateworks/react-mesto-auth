@@ -1,5 +1,5 @@
 
-.login__heading {
+.sign__heading {
   font-size: 24px;
   font-weight: 900;
   line-height: 29px;
@@ -11,7 +11,7 @@
 }
 
 @media screen and (max-width: 400px) {
-  .login__heading {
+  .sign__heading {
     font-size: 20px;
     line-height: 24px;
     padding-bottom: 40px;

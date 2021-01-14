@@ -1,5 +1,5 @@
 
-.login__button {
+.sign__button {
   font-size: 18px;
   font-weight: 400px;
   line-height: 22px;
@@ -20,7 +20,7 @@
   margin-top: auto;
 }
 
-.login__button:hover {
+.sign__button:hover {
   cursor: pointer;
   opacity: .85;
 }

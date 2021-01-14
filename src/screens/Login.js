@@ -41,14 +41,14 @@ const Login = ({handleLogin, history}) => {
   return(
     <div className="page">
       <Header />
-      <section className="login">
-        <form name="form-login" className="login__form">
-          <h3 className="login__heading">Вход</h3>
+      <section className="sign">
+        <form name="form-login" className="sign__form">
+          <h3 className="sign__heading">Вход</h3>
 
           <label>
             <input type="email"
               id="email" name="email"
-              className="login__item"
+              className="sign__item"
               maxLength="40" minLength="2"
               placeholder="Email" required
               value={email}
@@ -59,7 +59,7 @@ const Login = ({handleLogin, history}) => {
           <label>
             <input type="password"
               id="password" name="password"
-              className="login__item"
+              className="sign__item"
               maxLength="20" minLength="6"
               placeholder="Password" required
               value={password}
@@ -69,7 +69,7 @@ const Login = ({handleLogin, history}) => {
 
           <button
             type="submit" value="Войти"
-            className="login__button"
+            className="sign__button"
             onSubmit={handleSubmit}
           >
               Войти

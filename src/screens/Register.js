@@ -5,14 +5,14 @@ function Register() {
   return (
     <div className="page">
       <Header />
-      <section className="login">
-        <form name="form-register" className="login__form">
-          <h3 className="login__heading">Регистрация</h3>
+      <section className="sign">
+        <form name="form-register" className="sign__form">
+          <h3 className="sign__heading">Регистрация</h3>
 
           <label>
             <input type="email"
               id="email" name="email"
-              className="login__item"
+              className="sign__item"
               maxLength="40" minLength="2"
               placeholder="Email" required
             />
@@ -21,7 +21,7 @@ function Register() {
           <label>
             <input type="password"
               id="password" name="password"
-              className="login__item"
+              className="sign__item"
               maxLength="20" minLength="6"
               placeholder="Password" required
             />
@@ -29,7 +29,7 @@ function Register() {
 
           <button
             type="submit" value="Зарегистрироваться"
-            className="login__button">
+            className="sign__button">
               Зарегистрироваться
           </button>
 

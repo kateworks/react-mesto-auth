@@ -1,5 +1,5 @@
 
-.login__item {
+.sign__item {
   font-size: 14px;
   font-weight: normal;
   line-height: 17px;
@@ -22,6 +22,6 @@
   margin-bottom: 30px;
 }
 
-.login__item:focus {
+.sign__item:focus {
   outline: 0;
 }
