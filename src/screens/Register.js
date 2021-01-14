@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 
 function Register() {
@@ -33,9 +34,9 @@ function Register() {
               Зарегистрироваться
           </button>
 
-          <p className="">
+          <p className="sign__text">
             Уже зарегистрированы?
-            {/* <a href="#"> Войти</a> */}
+            <Link to="/sign-in" className="sign__link"> Войти</Link>
           </p>
         </form>
       </section>

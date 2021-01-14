@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { Link } from 'react-router-dom';
 import * as auth from '../utils/auth';
 import Header from '../components/Header';
 
@@ -74,6 +75,12 @@ const Login = ({handleLogin, history}) => {
           >
               Войти
           </button>
+
+          <p className="sign__text">
+            Еще не зарегистрированы?
+            <Link to="/sign-up" className="sign__link"> Регистрация</Link>
+          </p>
+
         </form>
       </section>
     </div>

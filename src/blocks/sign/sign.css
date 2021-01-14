@@ -2,6 +2,8 @@
 @import url(./__heading/sign__heading.css);
 @import url(./__item/sign__item.css);
 @import url(./__button/sign__button.css);
+@import url(./__text/sign__text.css);
+@import url(./__link/sign__link.css);
 
 .sign {
   box-sizing: border-box;
@@ -11,7 +13,7 @@
 
   padding: 0;
   padding-top: 60px;
-  padding-bottom: 112px;
+  padding-bottom: 80px;
   margin: 0 auto;
 }
 
@@ -20,6 +22,6 @@
     max-width: 260px;
     height: calc(100vh - 90px);
     padding-top: 40px;
-    padding-bottom: 77px;
+    padding-bottom: 40px;
   }
 }

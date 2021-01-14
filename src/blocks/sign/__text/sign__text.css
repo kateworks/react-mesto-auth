@@ -1,0 +1,19 @@
+
+.sign__text {
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 17px;
+  text-align: center;
+
+  color: #fff;
+
+  padding: 0;
+  padding-top: 15px;
+  margin: 0;
+}
+
+@media screen and (max-width: 400px) {
+  .sign__text {
+    padding-top: 20px;
+  }
+}
