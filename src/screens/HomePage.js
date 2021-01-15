@@ -183,7 +183,7 @@ function HomePage() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        <Header />
+        <Header text="Регистрация" url="/signup" />
         <Main
           onEditProfile={() => setEditProfilePopupOpen(true)}
           onAddPlace={() => setAddPlacePopupOpen(true)}

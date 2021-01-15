@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {Switch, Route, Redirect, useHistory} from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
-import * as auth from '../utils/auth';
+//import * as auth from '../utils/auth';
 
 import HomePage from '../screens/HomePage';
 import Login from '../screens/Login';
@@ -25,6 +25,7 @@ const App = () => {
 
   const handleRegister = (resultCode) => {
     let messageText = '', imageLink = null;
+
     switch (resultCode) {
       case 201:
         messageText ="Вы успешно зарегистрировались!";
@@ -43,24 +44,26 @@ const App = () => {
     setIsPopupOpen(true);
   };
 
-  const tokenCheck = () => {
-    if (localStorage.getItem('jwt')) {
-      const jwt = localStorage.getItem('jwt');
-      auth.checkToken(jwt)
-        .then((res) => {
-          if (res) {
-            setLoggedIn(true);
-          }
+  // const tokenCheck = () => {
+  //   if (localStorage.getItem('jwt')) {
+  //     const jwt = localStorage.getItem('jwt');
+  //     auth.checkToken(jwt)
+  //       .then((res) => {
+  //         if (res) {
+  //           setLoggedIn(true);
+  //           history.push('home');
+  //         }
+  //       });
+  //   }
+  // };
 
-        });
-    }
-  };
-
-  useEffect(() => {
-    tokenCheck();
-  }, [loggedIn]);
+  // useEffect(() => {
+  //   tokenCheck();
+  // }, []);
 
   const handleLogin = () => {
+    // 400 - не передано одно из полей
+    // 401 - пользователь с email не найден
     setLoggedIn(true);
   };
 

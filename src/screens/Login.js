@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import * as auth from '../utils/auth';
 import Header from '../components/Header';
 
-const Login = ({handleLogin, history}) => {
+const Login = (props) => {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -29,19 +29,19 @@ const Login = ({handleLogin, history}) => {
     auth.authorize(email, password)
       .then((data) => {
         console.log(data);
-        if (data.jwt) {
+        if (data.token) {
+          localStorage.setItem('jwt', data.token);
           resetForm();
-          handleLogin();
-          history.push('/home');
+          props.onLogin();
+          props.history.push('/home');
         }
       })
       .catch(err => console.log(err));
   }
 
-
   return(
     <div className="page">
-      <Header text={"Регистрация"} url="/signup"/>
+      <Header text="Регистрация" url="/signup"/>
       <section className="sign">
         <form
           name="form-login"
@@ -72,10 +72,7 @@ const Login = ({handleLogin, history}) => {
             />
           </label>
 
-          <button
-            type="submit"
-            className="sign__button"
-          >
+          <button type="submit" className="sign__button">
               Войти
           </button>
 
