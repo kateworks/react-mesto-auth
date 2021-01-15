@@ -14,7 +14,7 @@ import api from '../utils/api';
 import profileAvatar from '../images/profile-avatar.jpg';
 import {initialCards} from '../utils/cards-init';
 
-function Page() {
+function HomePage() {
   const [currentUser, setCurrentUser] = useState({
     _id: 0,
     name: 'Екатерина',
@@ -238,4 +238,4 @@ function Page() {
   );
 }
 
-export default Page;
+export default HomePage;

@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom';
 import * as auth from '../utils/auth';
 import Header from '../components/Header';
 
-function Register({history}) {
-
+const Register = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -16,6 +15,11 @@ function Register({history}) {
     setPassword(event.target.value);
   };
 
+  const resetForm = () => {
+    setEmail('');
+    setPassword('');
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     if ( !email || !password ) {
@@ -24,10 +28,12 @@ function Register({history}) {
 
     auth.register(email, password)
       .then((res) => {
-        console.log(res);
+        props.onRegister(201);
+        resetForm();
+        props.history.push('/signin');
       })
       .catch((err) => {
-        console.log(err);
+        props.onRegister(err);
       });
   };
 
@@ -64,10 +70,7 @@ function Register({history}) {
             />
           </label>
 
-          <button
-            type="submit"
-            className="sign__button"
-          >
+          <button type="submit" className="sign__button">
               Зарегистрироваться
           </button>
 
@@ -75,6 +78,7 @@ function Register({history}) {
             Уже зарегистрированы?
             <Link to="/signin" className="sign__link"> Войти</Link>
           </p>
+
         </form>
       </section>
     </div>

@@ -12,6 +12,6 @@
 
 @media screen and (max-width: 550px) {
   .popup__container {
-    width: calc(100% - 100px);
+    width: calc(100% - 40px);
   }
 }

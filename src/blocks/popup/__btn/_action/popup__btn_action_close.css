@@ -10,5 +10,13 @@
   position: absolute;
   top: -40px;
   right: -40px;
+  transition: .5s ease-in-out;
 }
+
+@media screen and (max-width: 550px) {
+  .popup__btn_action_close {
+    right: calc(50% - 25px);
+  }
+}
+
 

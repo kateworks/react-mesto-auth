@@ -1,0 +1,15 @@
+
+.popup__message-icon {
+  width: 120px;
+  height: 120px;
+
+  padding: 0;
+  padding-top: 60px;
+  margin: 0;
+}
+
+@media screen and (max-width: 550px) {
+  .popup__message-icon {
+    padding-top: 50px;
+  }
+}
