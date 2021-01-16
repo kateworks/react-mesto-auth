@@ -36,7 +36,9 @@ const Login = (props) => {
           props.history.push('/home');
         }
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        props.onLogin(email, err);
+      });
   }
 
   return(

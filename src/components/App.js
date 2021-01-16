@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Switch, Route, Redirect, useHistory} from 'react-router-dom';
 import ProtectedRoute from './ProtectedRoute';
-//import * as auth from '../utils/auth';
+import * as auth from '../utils/auth';
 
 import HomePage from '../screens/HomePage';
 import Login from '../screens/Login';
@@ -45,35 +45,51 @@ const App = () => {
     setIsPopupOpen(true);
   };
 
-  // const tokenCheck = () => {
-  //   if (localStorage.getItem('jwt')) {
-  //     const jwt = localStorage.getItem('jwt');
-  //     auth.checkToken(jwt)
-  //       .then((res) => {
-  //         if (res) {
-  //           setLoggedIn(true);
-  //           history.push('home');
-  //         }
-  //       });
-  //   }
-  // };
+  const tokenCheck = () => {
+    if (localStorage.getItem('jwt')) {
+      const jwt = localStorage.getItem('jwt');
+      auth.checkToken(jwt)
+        .then((res) => {
+          if (res) {
+            setLoggedIn(true);
+            history.push('/home');
+          }
+        });
+    }
+  };
 
-  // useEffect(() => {
-  //   tokenCheck();
-  // }, []);
+  useEffect(() => {
+    tokenCheck();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  const handleLogin = (email) => {
-    // 400 - не передано одно из полей
-    // 401 - пользователь с email не найден
-    setLoggedIn(true);
-    setEmail(email);
+  const handleLogin = (email = '', resultCode = 200) => {
+    if (resultCode === 200) {
+      setLoggedIn(true);
+      setEmail(email);
+    } else {
+        let messageText = '', imageLink = null;
+        switch (resultCode) {
+          case 400:
+            messageText = "Ошибка 400, не передано одно из полей";
+            break;
+          case 401:
+            messageText = `Ошибка 401, пользователь ${email} не найден`;
+            break;
+          default:
+            messageText = "Что-то пошло не так! Попробуйте ещё раз.";
+        }
+        imageLink = regFailure;
+        setResultMessage({ image: imageLink, text: messageText });
+        console.log(messageText);
+        setIsPopupOpen(true);
+    }
   };
 
   const handleLogout = () => {
     localStorage.removeItem('jwt');
     setLoggedIn(false);
   };
-
 
   return (
     <div>
