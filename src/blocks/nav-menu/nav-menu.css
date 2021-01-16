@@ -1,0 +1,12 @@
+@import url(./__link/nav-menu__link.css);
+@import url(./__text/nav-menu__text.css);
+@import url(./__text/_type/nav-menu__text_type_email.css);
+
+.nav-menu {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-flow: row wrap;
+}
+

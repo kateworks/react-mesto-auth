@@ -16,6 +16,7 @@ const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [resultMessage, setResultMessage] = useState({ image: null, text: '' });
+  const [email, setEmail] = useState('');
 
   let history = useHistory();
 
@@ -61,32 +62,42 @@ const App = () => {
   //   tokenCheck();
   // }, []);
 
-  const handleLogin = () => {
+  const handleLogin = (email) => {
     // 400 - не передано одно из полей
     // 401 - пользователь с email не найден
     setLoggedIn(true);
+    setEmail(email);
   };
 
-  // const handleLogout = () => {
-  //   localStorage.removeItem('jwt');
-  //   setLoggedIn(false);
-  //   // props.history.push('/sign-in');
-  // };
+  const handleLogout = () => {
+    localStorage.removeItem('jwt');
+    setLoggedIn(false);
+  };
 
 
   return (
     <div>
       <Switch>
-        <ProtectedRoute path="/home" loggedIn={loggedIn} component={HomePage} />
+        <ProtectedRoute
+          path="/home"
+          loggedIn={loggedIn}
+          component={HomePage}
+          onLogout={handleLogout}
+          email={email}
+        />
+
         <Route path="/signin">
-          <Login onLogin={handleLogin} history={history}/>
+          <Login onLogin={handleLogin} history={history} email={email}/>
         </Route>
+
         <Route path="/signup">
           <Register onRegister={handleRegister} history={history} />
         </Route>
+
         <Route exact path="/">
           {loggedIn ? <Redirect to="/home" /> : <Redirect to="/signin" />}
         </Route>
+
         <Route path="/react-mesto-auth">
           {loggedIn ? <Redirect to="/home" /> : <Redirect to="/signin" />}
         </Route>
@@ -103,7 +114,6 @@ const App = () => {
           textMessage={resultMessage.text}
         />
       }
-
 
     </div>
   );

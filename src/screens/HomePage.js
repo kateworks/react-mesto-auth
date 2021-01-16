@@ -14,7 +14,7 @@ import api from '../utils/api';
 import profileAvatar from '../images/profile-avatar.jpg';
 import {initialCards} from '../utils/cards-init';
 
-function HomePage() {
+function HomePage(props) {
   const [currentUser, setCurrentUser] = useState({
     _id: 0,
     name: 'Екатерина',
@@ -183,7 +183,14 @@ function HomePage() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-        <Header text="Регистрация" url="/signup" />
+        <Header>
+          <p className="nav-menu__text nav-menu__text_type_email">
+            {props.email}
+          </p>
+          <p className="nav-menu__text" onClick={props.onLogout}>
+            Выйти
+          </p>
+        </Header>
         <Main
           onEditProfile={() => setEditProfilePopupOpen(true)}
           onAddPlace={() => setAddPlacePopupOpen(true)}

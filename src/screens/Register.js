@@ -39,7 +39,10 @@ const Register = (props) => {
 
   return (
     <div className="page">
-      <Header text="Войти" url="/signin"/>
+      <Header>
+        <Link to="/signin" className="nav-menu__link">Войти</Link>
+      </Header>
+
       <section className="sign">
         <form
           name="form-register"

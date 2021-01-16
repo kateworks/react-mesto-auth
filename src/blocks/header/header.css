@@ -1,5 +1,4 @@
 @import url(./__logo/header__logo.css);
-@import url(./__link/header__link.css);
 
 .header {
   max-width: 882px;
@@ -15,6 +14,13 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
+}
+
+@media screen and (max-width: 900px) {
+  .header {
+    padding-right: 30px;
+    padding-left: 30px;
+  }
 }
 
 @media screen and (max-width: 400px) {
