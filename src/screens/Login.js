@@ -28,16 +28,15 @@ const Login = (props) => {
     }
     auth.authorize(email, password)
       .then((data) => {
-        //console.log(data);
         if (data.token) {
           localStorage.setItem('jwt', data.token);
           resetForm();
-          props.onLogin(email);
+          props.onLogin();
           props.history.push('/home');
         }
       })
       .catch(err => {
-        props.onLogin(email, err);
+        props.onLogin(err);
       });
   }
 

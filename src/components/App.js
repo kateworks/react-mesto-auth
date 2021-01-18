@@ -51,9 +51,14 @@ const App = () => {
       auth.checkToken(jwt)
         .then((res) => {
           if (res) {
+            setEmail(res.data.email);
             setLoggedIn(true);
             history.push('/home');
           }
+        })
+        .catch(err => {
+          console.log('Переданный токен некорректен.');
+          setLoggedIn(false);
         });
     }
   };
@@ -61,12 +66,11 @@ const App = () => {
   useEffect(() => {
     tokenCheck();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+}, [loggedIn]);
 
-  const handleLogin = (email = '', resultCode = 200) => {
+  const handleLogin = (resultCode = 200) => {
     if (resultCode === 200) {
       setLoggedIn(true);
-      setEmail(email);
     } else {
         let messageText = '', imageLink = null;
         switch (resultCode) {
@@ -92,7 +96,7 @@ const App = () => {
   };
 
   return (
-    <div>
+    <React.Fragment>
       <Switch>
         <ProtectedRoute
           path="/home"
@@ -131,7 +135,7 @@ const App = () => {
         />
       }
 
-    </div>
+    </React.Fragment>
   );
 }
 
