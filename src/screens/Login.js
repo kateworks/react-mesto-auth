@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
-import * as auth from '../utils/auth';
 import Header from '../components/Header';
 
 const Login = (props) => {
@@ -26,18 +25,7 @@ const Login = (props) => {
     if ( !email || !password ) {
       return;
     }
-    auth.authorize(email, password)
-      .then((data) => {
-        if (data.token) {
-          localStorage.setItem('jwt', data.token);
-          resetForm();
-          props.onLogin();
-          props.history.push('/home');
-        }
-      })
-      .catch(err => {
-        props.onLogin(err);
-      });
+    props.onLogin(email, password, resetForm);
   }
 
   return(

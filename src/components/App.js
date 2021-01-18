@@ -68,12 +68,20 @@ const App = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [loggedIn]);
 
-  const handleLogin = (resultCode = 200) => {
-    if (resultCode === 200) {
-      setLoggedIn(true);
-    } else {
-        let messageText = '', imageLink = null;
-        switch (resultCode) {
+  const handleLogin = (userEmail, userPassword, resetLoginForm) => {
+
+    auth.authorize(userEmail, userPassword)
+      .then((data) => {
+        if (data.token) {
+          localStorage.setItem('jwt', data.token);
+          resetLoginForm();
+          history.push('/home');
+          setLoggedIn(true);
+        }
+      })
+      .catch(err => {
+        let messageText = '', imageLink = regFailure;
+        switch (err) {
           case 400:
             messageText = "Ошибка 400, не передано одно из полей";
             break;
@@ -83,11 +91,10 @@ const App = () => {
           default:
             messageText = "Что-то пошло не так! Попробуйте ещё раз.";
         }
-        imageLink = regFailure;
         setResultMessage({ image: imageLink, text: messageText });
         console.log(messageText);
         setIsPopupOpen(true);
-    }
+      });
   };
 
   const handleLogout = () => {
