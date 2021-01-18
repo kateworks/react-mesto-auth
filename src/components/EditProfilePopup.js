@@ -11,7 +11,7 @@ function EditProfilePopup(props) {
   const {
     values, handleChange, handleInput,
     errors, isValid, resetForm,
-  } = useFormWithValidation()
+  } = useFormWithValidation();
 
   useEffect(() => {
     resetForm();
