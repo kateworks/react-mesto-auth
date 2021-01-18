@@ -1,100 +1,76 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import PopupWithForm from './PopupWithForm';
 import {popupInputClass} from '../utils/constants';
+import { useFormWithValidation } from '../hooks/useFormWithValidation';
 
 // Добавление карточки
 
-function AddPlacePopup(props) {
-  const [inputs, setInputs] = useState({ 
-    title: { value: '', isValid: true, },
-    link: { value: '', isValid: true, },
-  });
-
-  const [errorClasses, setErrorClasses] = useState({
-    title: { input: '', error: '', }, 
-    link: {  input: '', error: '', },
-  });
-
-  const [errorMessages, setErrorMessages] = useState({title: '', link: ''});
+const AddPlacePopup = (props) => {
+  const {
+    values, handleChange, handleInput,
+    errors, isValid, resetForm,
+  } = useFormWithValidation()
 
   useEffect(() => {
-    setInputs({ 
-      title: { value: '', isValid: false, },
-      link: { value: '', isValid: false, },
-    });
-    setErrorClasses({
-      title: { input: '', error: '', }, 
-      link: { input: '', error: '', },
-    });
-  }, [props.isOpen]);
+    resetForm();
+  }, [props.isOpen, resetForm]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.onAddPlace({title: inputs.title.value, link: inputs.link.value});
-  };
-
-  const handleChange = (e) => {
-    const {name, value, validity} = e.target;
-    setInputs({...inputs, [name]: { value: value, isValid: validity.valid, }});
-  };
-
-  const handleInput = (e) => {
-    const {name, value, validity, validationMessage} = e.target;
-    setInputs({...inputs, [name]: { value: value, isValid: validity.valid, }});
-    setErrorMessages({...errorMessages, [name]: validationMessage});
-    setErrorClasses({...errorClasses,
-      [name]: { 
-        input: !validity.valid ? popupInputClass.inputError : '', 
-        error: !validity.valid ? popupInputClass.error : '', 
-      }, 
-    });
+    props.onAddPlace(values);
   };
 
   return (
-    <PopupWithForm 
-      name="card" size="l" 
-      title="Новое место" 
-      submitName={props.submitName} 
-      submitDisabled={!inputs.title.isValid || !inputs.link.isValid}
-      isOpen={props.isOpen} 
+    <PopupWithForm
+      name="card" size="l"
+      title="Новое место"
+      submitName={props.submitName}
+      submitDisabled={!isValid}
+      isOpen={props.isOpen}
       onClose={props.onClose}
       onSubmit={handleSubmit}
     >
       <label className="popup__field">
         <input type="text"
-          id="title" name="title" 
-          maxLength="30" minLength="1" 
-          className={`popup__item popup__item_type_name ${errorClasses.title.input}`} 
-          placeholder="Название" 
+          id="title" name="title"
+          maxLength="30" minLength="1"
+          className={
+            `popup__item popup__item_type_name
+            ${errors.title ? popupInputClass.inputError : ''}`
+          }
+          placeholder="Название"
           required
-          value={inputs.title.value}
+          value={values.title || ''}
           onChange={handleChange}
           onInput={handleInput}
         />
-        <span 
-          className={`popup__error ${errorClasses.title.error}`} 
+        <span
+          className={`popup__error ${popupInputClass.error}`}
           id="title-error"
         >
-          {errorMessages.title}
+          {errors.title || ''}
         </span>
       </label>
 
       <label className="popup__field">
         <input type="url"
-          id="link" name="link" 
-          pattern="https?://.+" 
-          className={`popup__item popup__item_type_info ${errorClasses.link.input}`} 
-          placeholder="Ссылка на картинку" 
+          id="link" name="link"
+          pattern="https?://.+"
+          className={
+            `popup__item popup__item_type_info
+            ${errors.link ? popupInputClass.inputError : ''}`
+          }
+          placeholder="Ссылка на картинку"
           required
-          value={inputs.link.value}
+          value={values.link || ''}
           onChange={handleChange}
           onInput={handleInput}
         />
-        <span 
-          className={`popup__error ${errorClasses.link.error}`} 
+        <span
+          className={`popup__error ${popupInputClass.error}`}
           id="link-error"
         >
-          {errorMessages.link}
+          {errors.link || ''}
         </span>
       </label>
     </PopupWithForm>
