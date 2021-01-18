@@ -20,6 +20,29 @@ const App = () => {
 
   let history = useHistory();
 
+  const tokenCheck = () => {
+    if (localStorage.getItem('jwt')) {
+      const jwt = localStorage.getItem('jwt');
+      auth.checkToken(jwt)
+        .then((res) => {
+          if (res) {
+            setEmail(res.data.email);
+            setLoggedIn(true);
+            history.push('/home');
+          }
+        })
+        .catch(err => {
+          console.log('Переданный токен некорректен.');
+          setLoggedIn(false);
+        });
+    }
+  };
+
+  useEffect(() => {
+    tokenCheck();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loggedIn]);
+
   const handlePopupClose = () => {
     setIsPopupOpen(false);
   };
@@ -85,29 +108,6 @@ const App = () => {
     localStorage.removeItem('jwt');
     setLoggedIn(false);
   };
-
-  const tokenCheck = () => {
-    if (localStorage.getItem('jwt')) {
-      const jwt = localStorage.getItem('jwt');
-      auth.checkToken(jwt)
-        .then((res) => {
-          if (res) {
-            setEmail(res.data.email);
-            setLoggedIn(true);
-            history.push('/home');
-          }
-        })
-        .catch(err => {
-          console.log('Переданный токен некорректен.');
-          setLoggedIn(false);
-        });
-    }
-  };
-
-  useEffect(() => {
-    tokenCheck();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [loggedIn]);
 
   return (
     <React.Fragment>
