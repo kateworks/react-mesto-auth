@@ -10,7 +10,7 @@
   margin: 0;
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 900px) {
   .sign__heading {
     font-size: 20px;
     line-height: 24px;

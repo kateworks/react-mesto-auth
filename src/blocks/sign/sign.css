@@ -17,6 +17,12 @@
   margin: 0 auto;
 }
 
+@media screen and (max-width: 900px) {
+  .sign {
+    padding-bottom: 50px;
+  }
+}
+
 @media screen and (max-width: 400px) {
   .sign {
     max-width: 260px;
