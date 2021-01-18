@@ -24,25 +24,66 @@ const App = () => {
     setIsPopupOpen(false);
   };
 
-  const handleRegister = (resultCode) => {
+  const handleRegister = (userEmail, userPassword, resetRegisterForm) => {
     let messageText = '', imageLink = null;
 
-    switch (resultCode) {
-      case 201:
+    auth.register(userEmail, userPassword)
+      .then((res) => {
+        resetRegisterForm();
+        history.push('/signin');
         messageText ="Вы успешно зарегистрировались!";
         imageLink = regSuccess;
-        break;
-      case 400:
-        messageText = "Ошибка 400, некорректно заполнено одно из полей";
-        imageLink = regFailure;
-        break;
-      default:
-        messageText = "Что-то пошло не так! Попробуйте ещё раз.";
-        imageLink = regFailure;
-    }
-    setResultMessage({ image: imageLink, text: messageText });
-    console.log(messageText);
-    setIsPopupOpen(true);
+      })
+      .catch((err) => {
+        switch (err) {
+          case 400:
+            messageText = "Ошибка 400, некорректно заполнено одно из полей";
+            imageLink = regFailure;
+            break;
+          default:
+            messageText = "Что-то пошло не так! Попробуйте ещё раз.";
+            imageLink = regFailure;
+        }
+          })
+      .finally(() => {
+        setResultMessage({ image: imageLink, text: messageText });
+        console.log(messageText);
+        setIsPopupOpen(true);
+      });
+  };
+
+  const handleLogin = (userEmail, userPassword, resetLoginForm) => {
+
+    auth.authorize(userEmail, userPassword)
+      .then((data) => {
+        if (data.token) {
+          localStorage.setItem('jwt', data.token);
+          resetLoginForm();
+          history.push('/home');
+          setLoggedIn(true);
+        }
+      })
+      .catch(err => {
+        let messageText = '', imageLink = regFailure;
+        switch (err) {
+          case 400:
+            messageText = "Ошибка 400, не передано одно из полей";
+            break;
+          case 401:
+            messageText = `Ошибка 401, пользователь ${userEmail} не найден`;
+            break;
+          default:
+            messageText = "Что-то пошло не так! Попробуйте ещё раз.";
+        }
+        setResultMessage({ image: imageLink, text: messageText });
+        console.log(messageText);
+        setIsPopupOpen(true);
+      });
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('jwt');
+    setLoggedIn(false);
   };
 
   const tokenCheck = () => {
@@ -66,41 +107,7 @@ const App = () => {
   useEffect(() => {
     tokenCheck();
   // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [loggedIn]);
-
-  const handleLogin = (userEmail, userPassword, resetLoginForm) => {
-
-    auth.authorize(userEmail, userPassword)
-      .then((data) => {
-        if (data.token) {
-          localStorage.setItem('jwt', data.token);
-          resetLoginForm();
-          history.push('/home');
-          setLoggedIn(true);
-        }
-      })
-      .catch(err => {
-        let messageText = '', imageLink = regFailure;
-        switch (err) {
-          case 400:
-            messageText = "Ошибка 400, не передано одно из полей";
-            break;
-          case 401:
-            messageText = `Ошибка 401, пользователь ${email} не найден`;
-            break;
-          default:
-            messageText = "Что-то пошло не так! Попробуйте ещё раз.";
-        }
-        setResultMessage({ image: imageLink, text: messageText });
-        console.log(messageText);
-        setIsPopupOpen(true);
-      });
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem('jwt');
-    setLoggedIn(false);
-  };
+  }, [loggedIn]);
 
   return (
     <React.Fragment>

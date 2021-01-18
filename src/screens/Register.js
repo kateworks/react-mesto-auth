@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
-import * as auth from '../utils/auth';
 import Header from '../components/Header';
 
 const Register = (props) => {
@@ -25,16 +24,7 @@ const Register = (props) => {
     if ( !email || !password ) {
       return;
     }
-
-    auth.register(email, password)
-      .then((res) => {
-        props.onRegister(201);
-        resetForm();
-        props.history.push('/signin');
-      })
-      .catch((err) => {
-        props.onRegister(err);
-      });
+    props.onRegister(email, password, resetForm);
   };
 
   return (
