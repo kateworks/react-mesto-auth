@@ -19,22 +19,22 @@ function Card({ card, onClick, onLike, onDelete }) {
 
   return(
     <li className="card">
-      <img 
-        className="card__image" 
-        src={card.link} 
-        alt={card.title} 
-        onClick={handleClick} 
+      <img
+        className="card__image"
+        src={card.link}
+        alt={card.title}
+        onClick={handleClick}
       />
       <div className="card__description">
         <h2 className="card__title">{card.title}</h2>
         <div className="card__like-group">
-          <button 
+          <button
             className={
-              `card__btn card__btn_action_like shaded 
-              ${card.likes.length > 0  ? 'card__btn_clicked' : ''}`
+              `card__btn card__btn_action_like shaded
+              ${card.likes.length > 0 ? 'card__btn_clicked' : ''}`
             }
             onClick={handleLike}
-            title="Нравится" 
+            title="Нравится"
           />
           <span className="card__like-num">
             {card.likes.length}
@@ -42,9 +42,10 @@ function Card({ card, onClick, onLike, onDelete }) {
         </div>
       </div>
 
-      <button 
-        className="card__btn card__btn_action_del shaded" 
-        disabled={!isOwned} hidden={!isOwned}
+      <button
+        className="card__btn card__btn_action_del shaded"
+        disabled={!isOwned}
+        hidden={!isOwned}
         onClick={handleDelete}
         title="Удалить"
       />

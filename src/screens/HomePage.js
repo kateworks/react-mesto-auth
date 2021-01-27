@@ -44,11 +44,9 @@ function HomePage(props) {
     Promise.all([api.getUserInfo(), api.getInitialCards()])
     .then(([userData, cardsData]) => {
 
+      const { data } = userData;
       setCurrentUser({
-        _id: userData._id,
-        name: userData.name,
-        about: userData.about,
-        avatar: userData.avatar
+        _id: data._id, name: data.name, about: data.about, avatar: data.avatar
       });
 
       setCards(cardsData.map(item => {
@@ -56,7 +54,7 @@ function HomePage(props) {
           title: item.name,
           link: item.link,
           likes: item.likes,
-          owner: item.owner._id,
+          owner: item.owner,
           id: item._id
         };
       }));
@@ -70,12 +68,12 @@ function HomePage(props) {
   }, []);
 
   // Обновление информации о пользователе на сервере
-  const handleUpdateUser = ({name, info}) => {
+  const handleUpdateUser = ({ name, info }) => {
     setProfileSubmitName('Сохранение...');
-    api.patchUserProfile({name, info})
-      .then((res) => {
+    api.patchUserProfile({ name, info })
+      .then(({ data }) => {
         console.log(`Информация о пользователе сохранена.`);
-        setCurrentUser({...currentUser, name: res.name, about: res.about});
+        setCurrentUser({ ...currentUser, name: data.name, about: data.about });
         setEditProfilePopupOpen(false);
       })
       .catch((err) => {
@@ -90,8 +88,8 @@ function HomePage(props) {
   const handleUpdateAvatar = (newAvatarLink) => {
     setAvatarSubmitName('Сохранение...');
     api.patchNewAvatar({avatar: newAvatarLink})
-    .then((res) => {
-      setCurrentUser({...currentUser, avatar: res.avatar});
+    .then(({ data }) => {
+      setCurrentUser({...currentUser, avatar: data.avatar});
       setEditAvatarPopupOpen(false);
     })
     .catch((err) => {
@@ -104,21 +102,17 @@ function HomePage(props) {
 
   const handleCardLike = (card) => {
     const isLiked = (card.likes.some(
-      likeAuthor => likeAuthor._id === currentUser._id
+      likeAuthor => likeAuthor === currentUser._id
     ));
     const likeAction = isLiked ? 'удалить' : 'поставить';
     const likeFunc = isLiked ? id => api.unlikeCard(id) : id => api.likeCard(id);
 
     // Ставим или удаляем лайк в зависимости от его текущего состояния
     likeFunc(card.id)
-      .then((res) => {
+      .then(({ data }) => {
         // Если запрос выполнен успешно, создаем новую карточку
         const changedCard = {
-          title: res.name,
-          link: res.link,
-          likes: res.likes,
-          owner: res.owner._id,
-          id: res._id
+          title: data.name, link: data.link, likes: data.likes, owner: data.owner, id: data._id
         };
         // Выполняем замену карточки
         const newCards = cards.map((currentCard) => (
@@ -160,17 +154,16 @@ function HomePage(props) {
 
   const handleAddPlace = (newPlace) => {
     setAddPlaceSubmitName('Сохранение...');
-    api.postNewCard({name: newPlace.title, link: newPlace.link})
-      .then((res) => {
+    api.postNewCard({ name: newPlace.title, link: newPlace.link })
+      .then(({ data }) => {
+
         const newCard = {
-          title: res.name,
-          link: res.link,
-          likes: res.likes,
-          owner: res.owner._id,
-          id: res._id
+          title: data.name, link: data.link, likes: data.likes, owner: data.owner, id: data._id
         };
+
         setCards([newCard, ...cards]);
         setAddPlacePopupOpen(false);
+
       })
       .catch((err) => {
         console.log(`Невозможно сохранить карточку на сервере. Ошибка ${err}.`);
@@ -179,6 +172,10 @@ function HomePage(props) {
         setAddPlaceSubmitName('Создать');
       });
   };
+
+  const handleEditProfile = () => {
+    setEditProfilePopupOpen(true);
+  }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -192,7 +189,7 @@ function HomePage(props) {
           </p>
         </Header>
         <Main
-          onEditProfile={() => setEditProfilePopupOpen(true)}
+          onEditProfile={handleEditProfile}
           onAddPlace={() => setAddPlacePopupOpen(true)}
           onEditAvatar={() => setEditAvatarPopupOpen(true)}
           onCardClick={(card) => setSelectedCard(card)}
