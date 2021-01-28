@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://api.kt2.students.nomoredomains.work';
+export const BASE_URL = 'https://api.kt2.students.nomoredomains.work';
 
 export const handleResponse = (res) => {
   if (res.ok) return res.json();
