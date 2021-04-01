@@ -1,7 +1,7 @@
 {
   "name": "react-mesto-auth",
   "version": "1.0.2",
-  "homepage": ".",
+  "homepage": "https://kateworks.github.io/react-mesto-auth",
   "description": "Интерактивная страница для размещения фотографий",
   "author": "Ekaterina Pozhidaeva",
   "private": true,
@@ -18,11 +18,9 @@
   },
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "scp -r ./build/* kateworks@178.154.230.59:/home/kateworks/frontend",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "build": "react-scripts build"
   },
   "eslintConfig": {
     "extends": [
