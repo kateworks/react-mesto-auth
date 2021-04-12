@@ -17,7 +17,7 @@
 
 ## Страница проекта
 
-https://kt2.students.nomoredomains.work
+https://kateworks.github.io/react-mesto-auth/
 
 
 ## Технологии
